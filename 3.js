@@ -121,7 +121,7 @@ const faturamentoMensal = [
 	}
 ];
   
-  // Ignorando os dias em que o faturamento é 0 (sábado e domingo)
+// Ignorando os dias em que o faturamento é 0 (sábado e domingo)
   const diasUteis = faturamentoMensal.filter(dia => dia.faturamento > 0);
   
   // Calculando a média mensal do faturamento apenas considerando os dias úteis
@@ -135,7 +135,29 @@ const faturamentoMensal = [
   
   // Obtendo o número de dias em que o faturamento diário foi superior à média mensal
   const diasAcimaDaMedia = diasUteis.filter(dia => dia.faturamento > mediaMensal).length;
+
+  const linhas = diasUteis.map(a => {
+    for(let i=0; i < diasUteis.length; i++){
+      return `
+      <ul>
+        <li>${a.dia}</li>
+        <li>${a.faturamento}</li>
+      </ul>
+      `
+    }
+  })
   
-  console.log(`Menor faturamento: ${menorFaturamento}`);
-  console.log(`Maior faturamento: ${maiorFaturamento}`);
-  console.log(`Dias com faturamento acima da média mensal: ${diasAcimaDaMedia}`);
+function diaFatura(){
+  return `<ul>
+        <li>Menor faturamento: ${menorFaturamento}</li>
+        <li>Maior faturamento: ${maiorFaturamento}</li>
+        <li>Dias com faturamento acima da média mensal: ${diasAcimaDaMedia}</li>
+      </ul>`
+}
+
+const lista = document.getElementById('lista');
+lista.innerHTML = linhas;
+
+const total = document.getElementById('total');
+total.innerHTML = diaFatura();
+
